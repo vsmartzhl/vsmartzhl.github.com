@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>原生js弹出层</title>
+<link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+<link rel="stylesheet" href="../css/dialog.css">
+<style>
+	#dialogsels{ width: 500px; margin: 50px auto 0;}
+	button{margin-left: 20px; cursor: pointer;}
+</style>
+<script src="../js/dialog.js"></script>
+
+</head>
+<body>
+<div id="dialogsels">
+	<button>alert弹出层</button>
+	<button>confirm弹出层</button>
+	<button>dialog弹出层</button>
+</div>
+
+	
+</body>
+</html>
+
+<script>
+window.onload = function(){
+	var abtn = document.getElementsByTagName('button');
+	abtn[0].onclick = function(){
+		//var nalert = new Zalert();
+		var nalert = new Zalert({
+			title:'hello',
+			content : '欢迎你的浏览！'
+		}); 
+	};
+	abtn[1].onclick = function(){
+		var acon = new Zconfirm({
+			title : '确认',
+			content : '是否提交内容?'
+		},fncall);
+
+		//var acon = new Zconfirm(null,fncall);
+
+		/*var acon = new Zconfirm();
+		acon.doConfirm = fncall;*/
+	};
+	abtn[2].onclick = function(){
+		new Zdialog({
+			width : 300,
+		    title:'dialog',
+		    content:'请确认提交的内容请确认提交的内容请确认提交的内容请确认提交的内容请确认提交的内容请确认提交的内容请确认提交的内容请确认提交的内容请确认提交的内容!',
+		    mask : true,
+		    dir : 'center',
+		    opacity : 0.1,
+		    cancelBtn:true,
+		    buttons:[{
+				text :'showe',
+				fn:fncall
+			},{
+				text :'helpe',
+				fn:help
+			},{
+				text :'取消'
+			}]
+		});
+	};
+}
+
+
+
+
+
+function fncall () {
+	alert('new fncall');
+}
+
+function help () {
+	alert('help')
+}
+
+function addLoadEvent(func){
+	var oldOnload = window.onload;
+	if(typeof window.onload != 'function'){
+		window.onload = func;
+	}else{
+		window.onload = function(){
+			oldOnload();
+			func();
+		}
+	}
+}
+
+
+</script>
