@@ -1,0 +1,26 @@
+.containter{ 
+	border: 1px solid #ccc; background: #fff;
+	min-height: 120px;
+	border-radius: 5px;
+	padding-bottom: 35px;
+}
+.containter .footer input{ margin-right: 15px; }
+.containter .footer { 
+	position: absolute; bottom: 1px;
+	width: 100%; height: 40px;
+	text-align: right; 
+	background: #efefef; padding: 8px;
+}
+.containter .content{ padding: 15px;}
+.containter h4{ 
+	-border-bottom: 1px solid #ccc;
+	padding-bottom: 5px;
+	background: #efefef;
+	padding: 10px; margin: 0
+}
+
+#mask{ 
+	width: 100%; height: 100%;
+	position: absolute; left: 0; top: 0;
+	background: #ccc; z-index: 99;
+}
