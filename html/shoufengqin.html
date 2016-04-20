@@ -1,0 +1,57 @@
+ <!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="author" content="智能社 - zhinengshe.com" />
+<meta name="copyright" content="智能社 - zhinengshe.com" />
+<title>智能社 - www.zhinengshe.com</title>
+<style>
+* {margin:0; padding:0; list-style:none;}
+
+#ul1 {width:580px; height:300px; margin:10px auto; overflow:hidden; position:relative;}
+#ul1 li {width:500px; height:300px; position:absolute; top:0;}
+#ul1 li img{width:500px; height:300px; }
+
+#ul1 li.a1 {left:0; background:#06C; left:0;}
+#ul1 li.a2 {left:0; background:#60C; left:500px;}
+#ul1 li.a3 {left:0; background:#0C6; left:520px;}
+#ul1 li.a4 {left:0; background:#C60; left:540px;}
+#ul1 li.a5 {left:0; background:#C06; left:560px;}
+</style>
+<script src="../js/move7.js"></script>
+<script>
+	window.onload = function(){
+		var oUl = document.getElementById('ul1');	
+		var aLi = oUl.children;
+		
+		//循环加事件
+		for(var i = 0;i<aLi.length;i++){
+			(function(index){
+				aLi[i].onmouseover = function(){
+					for(var i = 0;i<aLi.length;i++){
+						if(i<=index){
+							
+							move(aLi[i],{left:i*20},{type:'ease-out'});
+						}else{
+							
+							move(aLi[i],{left:500+(i-1)*20},{type:'ease-out'});
+						}
+					}
+					
+				};
+			})(i);
+		}
+	};
+</script>
+</head>
+
+<body>
+<ul id="ul1">
+	<li class="a1"><img src="../images/1.jpg" alt=""></li>
+	<li class="a2"><img src="../images/2.jpg" alt=""></li>
+	<li class="a3"><img src="../images/3.jpg" alt=""></li>
+	<li class="a4"><img src="../images/4.jpg" alt=""></li>
+	<li class="a5"><img src="../images/5.jpg" alt=""></li>
+</ul>
+</body>
+</html>
