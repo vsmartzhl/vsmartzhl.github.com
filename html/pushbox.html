@@ -13,7 +13,7 @@
 
 .box{ width:50px; height:50px; background:url(../images/box.png) no-repeat; position:absolute;}
 .person{ width:50px; height:50px; background:url(../images/person.png) no-repeat; position:absolute;}
-
+p{ margin: 20px auto; width: 50px;}
 </style>
 <script type="text/javascript" src="../js/jquery.js"></script>
 <script>
@@ -77,9 +77,16 @@ var Game = {
 	
 	init : function(oParent){  //初始化
 		this.oParent = oParent;
+
+		this.gks = 0;
+
+		var This = this;
 		
-		this.createMap(0);
-		
+		this.createMap(this.gks);
+		$("p a").bind("click", function(){
+		  $('p a').data("gks", This.gks);
+		  This.createMap(This.gks);
+		});		
 	},
 	createMap : function(iNow){  //创建地图
 		
@@ -226,6 +233,8 @@ var Game = {
 	nextShow : function(){   //下一关
 		
 		var iNum = 0;
+
+		var This = this;
 		
 		$('.pos3').each($.proxy(function(i,elem){
 			
@@ -240,7 +249,16 @@ var Game = {
 		},this));
 		
 		if( iNum == $('.box').size() ){
-			this.createMap(1);
+			this.gks ++;
+			if(this.gks == this.gk.length){
+				alert("你好厉害啊！学着编写一个游戏吧！");
+				this.gks--;
+			}
+			this.createMap(this.gks);
+			$("p a").bind("click", function(){
+				$('p a').data("gks", This.gks);
+				This.createMap(This.gks);
+			});
 		}
 		
 	},
@@ -269,6 +287,7 @@ var Game = {
 </head>
 
 <body>
-<div id="div1"></div>
+<div id="div1" style="overflow:hidden"></div>
+<p><a data-gks="0" href="javascript:;">重玩</a></p>
 </body>
 </html>
