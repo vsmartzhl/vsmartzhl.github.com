@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>跑马灯打字机</title>
+
+<style>
+*{padding: 0;margin: 0;}
+ul li{list-style: none;}
+#div1,#div2{
+	border: 2px solid blue; padding: 20px;
+	width: 300px; 
+	float: left;margin: 20px; position: relative;
+}
+div p{
+	height: 150px;
+}
+.zuoyou{ float:left; width: 100px;margin-top: 100px; }
+.zuoyou a{display: block; padding: 5px 10px; background: red; color: #fff; margin-bottom: 10px;}
+ul{float: left; }
+ul li{width: 10px;height: 10px;border-radius: 50%; float: left;
+	background: gray;margin: 5px;
+}
+</style>
+</head>
+<body>
+
+<div id="div1">
+	<p>此次发射分三批进行释放：首先释放主星，然后按照4颗一组，释放88颗“鸽群”卫星，最后释放其他卫星。尤其是101颗纳米卫星，释放过程不到10分钟。庞之浩表示，这对火箭点火时序的控制、分配器的设计要求都很高，要在很短的时间间隔内，把卫星以一定倾斜角度推出去，保证其不会相互碰撞。</p>
+	<input type="button" value="">
+</div>
+<div class="zuoyou"><a href="javascript:;">→</a><a href="javascript:;">←</a>
+<ul>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>	
+</div>
+
+<div id="div2">
+	<p></p>
+	<input type="button" value="">
+</div>
+	
+<script>	
+var p1 = document.querySelector('#div1 p');
+var p2 = document.querySelector('#div2 p');
+var input = document.querySelectorAll('input');
+var a = document.querySelectorAll('.zuoyou a');
+var li = document.querySelectorAll('li');
+
+var tlen = p1.innerHTML.length;
+
+input[1].value = '0/'+tlen;
+input[0].value = tlen +'/'+tlen;
+
+var timer = null;
+var num = 0;
+var linum = 0;
+var oldstr = p1.innerHTML;
+a[0].onclick = function(){
+	timer = setInterval(function(){
+		num++;
+
+		li[linum].style.backgroundColor='';
+		linum++;
+		linum %= li.length;
+		li[linum].style.backgroundColor='yellow';
+
+		p2.innerHTML += oldstr.substr(num,1);
+		p1.innerHTML = oldstr.substr(num);
+		input[0].value = tlen-num +'/'+tlen;
+		input[1].value = num +'/'+tlen;
+
+		if(num == tlen){
+			clearInterval(timer);
+		}
+	},50);
+}
+a[1].onclick = function(){
+	num = 0;
+	timer = setInterval(function(){
+		num++;
+
+		li[linum].style.backgroundColor='';
+		linum++;
+		linum %= li.length;
+		li[linum].style.backgroundColor='yellow';
+
+		p1.innerHTML += oldstr.substr(num,1);
+		p2.innerHTML = oldstr.substr(num);
+		input[1].value = tlen-num +'/'+tlen;
+		input[0].value = num +'/'+tlen;
+		if(num == tlen){
+			clearInterval(timer);
+		}
+	},50);
+}
+
+
+</script>
+
+</body>
+</html>
