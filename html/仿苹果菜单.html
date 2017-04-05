@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>8</title>
+<style>
+*{margin: 0;padding: 0;}
+#div1{width: 100%; text-align: center;position: absolute;bottom: 0;}
+img{width: 64px;}
+</style>
+<script>
+window.onload=  function(){
+	var ainput = document.getElementsByTagName('input');
+	var adiv = document.getElementsByTagName('div')[0];
+	var aimg = document.getElementsByTagName('img');
+
+	document.onmousemove = function(ev){
+		var ev = ev || window.event;
+
+		for (var i = 0; i < aimg.length; i++) {
+			var x = aimg[i].offsetLeft + aimg[i].offsetWidth/2;
+			var y = aimg[i].offsetTop + aimg[i].offsetHeight/2 + adiv.offsetTop;
+
+			var b = ev.clientX-x;
+			var a = ev.clientY-y;
+			var c = Math.sqrt(Math.pow(b,2) + Math.pow(a,2));
+
+			var scale  = 1 - c/300;
+
+			if(scale < 0.5){
+				scale = 0.5;
+			}
+
+			//ainput[i].value =  scale;
+			aimg[i].style.width = scale * 128 + 'px';
+			aimg[i].style.height = scale * 128 + 'px';
+		}
+
+	}
+
+	
+}
+</script>
+</head>
+<body>
+<!-- <input type="text" value="">
+<input type="text" value="">
+<input type="text" value="">
+<input type="text" value="">
+<input type="text" value=""> -->
+<div id="div1">
+	<img src="img/1.png" alt="">
+	<img src="img/2.png" alt="">
+	<img src="img/3.png" alt="">
+	<img src="img/4.png" alt="">
+	<img src="img/5.png" alt="">
+</div>
+</body>
+</html>
