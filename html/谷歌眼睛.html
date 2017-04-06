@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>三维运动</title>
+<style>
+*{margin: 0;padding: 0;}
+#div1{width: 176px;height: 91px; position: absolute;left: 300px; top: 200px; background: url(img/265.png) no-repeat;	
+}
+#div2{border: 2px #000 solid; position: absolute;
+	left: 115px; top: 43px; border-radius: 50%;
+}
+#div3{border: 2px #000 solid; position: absolute;
+	left: 135px; top: 43px;border-radius: 50%;
+}
+</style>
+<script>
+window.onload = function(){
+	var odiv2 = document.getElementById('div2');
+	var odiv3 = document.getElementById('div3');
+	var r = 5;
+	var L2 = 115;
+	var T2 = 43;
+	var L3 = 135;
+	var T3 = 43;
+
+	document.onmousemove = function(ev){
+		var ev = ev || window.event;
+		change(odiv2,ev.clientX,ev.clientY,L2,T2);
+		change(odiv3,ev.clientX,ev.clientY,L3,T3);
+
+		function change(obj,x,y,l,t){
+
+			var changeX;
+			var changeY;
+
+			var b = Math.abs(x-(obj.offsetLeft + obj.parentNode.offsetLeft));
+			var a = Math.abs(y-(obj.offsetTop + obj.parentNode.offsetTop));
+
+			var bl = obj.offsetLeft + obj.parentNode.offsetLeft;
+
+			var at = obj.offsetTop + obj.parentNode.offsetTop;
+
+			if(x> bl && y < at){
+				changeX = Math.sin(Math.atan(b/a))*r;
+				changeY = Math.cos(Math.atan(b/a))* -r;
+
+			}else if(x > bl && y > at){
+				changeX = Math.sin(Math.atan(b/a))*r;
+				changeY = Math.cos(Math.atan(b/a))*r;
+
+			}else if(x< bl && y > at){
+				changeX = Math.sin(Math.atan(b/a))* -r;
+				changeY = Math.cos(Math.atan(b/a))* r;
+
+			}else if(x< bl && y < at){
+				changeX = Math.sin(Math.atan(b/a))* -r;
+				changeY = Math.cos(Math.atan(b/a))* -r;
+
+			}
+
+			obj.style.left = l + changeX + 'px';
+			obj.style.top = t + changeY + 'px';
+
+		}
+
+	};
+
+
+
+
+}
+</script>
+</head>
+<body>
+<div id="div1">
+	<div id="div2"></div>
+	<div id="div3"></div>
+</div>
+</body>
+</html>

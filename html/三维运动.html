@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>三维运动</title>
+<style>
+*{margin: 0;padding: 0;}
+#div1{width: 20px;height: 20px; background: red;position: absolute;left: 800px; top: 300px;	
+}
+.box{border: 1px solid #000; position: absolute;}
+</style>
+<script>
+window.onload = function(){
+	var odiv = document.getElementById('div1');
+	var r = 100;
+	var x = 700;
+	var y = 300;
+
+	var num = 0;
+
+	setInterval(function(){
+		num++;
+		/*Math.sin(num*Math.PI/100) = a/r;
+		Math.cos(num*Math.PI/100) = b/r;*/
+
+		var a = Math.sin(num*Math.PI/180)*r;
+		var b = Math.cos(num*Math.PI/180)*r;
+
+		odiv.style.left = x + b + 'px';
+		//odiv.style.top = y + a + 'px';
+		//
+		
+		odiv.style.width = a/100*30 + 50 +'px'; 
+		odiv.style.height = a/100*30 + 50 +'px'; 
+
+		/*var obox = document.createElement('div');
+		obox.className = 'box';
+
+		document.body.appendChild(obox);
+		obox.style.left = odiv.offsetLeft + 'px';
+		obox.style.top = odiv.offsetTop + 'px';*/
+
+	},30);
+}
+</script>
+</head>
+<body>
+<div id="div1">div</div>
+</body>
+</html>
