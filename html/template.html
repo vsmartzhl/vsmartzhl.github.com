@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>template</title>
+<script src="http://hs.3g.cnfol.com/uh/Js/WeiXin/jquery.1.91.js"></script>
+<script src="../js/template.js"></script>
+</head>
+<body>
+
+<script id="tpl" type="type/template">
+	<h2 onclick="alert(5)">{{  name }}</h2>
+	<span data-if="age>25">{{ age  }}</span>
+	<div data-show="showbool">8888</div>
+</script>
+
+<div id="context" data-for data-html="tpl"></div>
+
+<script>
+
+	// 数据data
+	var data  = [{
+		name : 'zhl',
+		age : 30,
+		showbool : false,
+		dataif:true
+	},{
+		name : 'mll',
+		age : 20,
+		showbool : false,
+	},{
+		name : 'zhl',
+		age : 10,
+		showbool : true,
+	}]
+	/*var data  = {
+		name : 'zhl',
+		age : 30,
+		showbool : false,
+		dataif:true
+	};*/
+
+	// 模版化调用
+	// template(id,data);
+	// @id : 放元素的容器
+	// @data : 数据
+	template('context',data);
+
+
+</script>
+	
+</body>
+</html>
