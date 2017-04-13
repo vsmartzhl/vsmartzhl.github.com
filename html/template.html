@@ -3,17 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <title>template</title>
-<script src="http://hs.3g.cnfol.com/uh/Js/WeiXin/jquery.1.91.js"></script>
-<script src="../js/template.js"></script>
+<script src="http://hs.3g.cnfol.com/uh/Js/PlugJs/jquery.min.js"></script>
+<!-- <script src="http://hs.3g.cnfol.com/uh/Js/PlugJs/template.js"></script> -->
+<script src="template.js"></script>
 </head>
 <body>
 
+<!-- 模板结构 -->
 <script id="tpl" type="type/template">
-	<h2 onclick="alert(5)">{{  name }}</h2>
-	<span data-if="age>25">{{ age  }}</span>
-	<div data-show="showbool">8888</div>
+	<h2>{{  name }}</h2>
+	<p>
+		<span data-if="age>25">{{ age  }}</span>
+		<span data-show="score>60">{{ score  }}</span>
+	</p>
 </script>
 
+<!-- 真正要放入内容的容器 -->
 <div id="context" data-for data-html="tpl"></div>
 
 <script>
@@ -22,20 +27,24 @@
 	var data  = [{
 		name : 'zhl',
 		age : 30,
+		score:98,
 		showbool : false,
 		dataif:true
 	},{
 		name : 'mll',
 		age : 20,
+		score:65,
 		showbool : false,
 	},{
 		name : 'zhl',
 		age : 10,
+		score:34,
 		showbool : true,
 	}]
 	/*var data  = {
 		name : 'zhl',
 		age : 30,
+		score:88,
 		showbool : false,
 		dataif:true
 	};*/
@@ -44,7 +53,8 @@
 	// template(id,data);
 	// @id : 放元素的容器
 	// @data : 数据
-	template('context',data);
+	
+	$.template('context',data);
 
 
 </script>
