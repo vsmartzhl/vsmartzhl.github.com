@@ -4,6 +4,7 @@ var SETTINGS = {
     title:'请添加标题',
     content:'请添加文本内容！',
     mask : true,
+    dragable:false,
     dir : 'center',
     opacity : 0.1,
     cancelBtn:true
@@ -14,6 +15,7 @@ var Zdialog = function(opt){
         this.settings = {};
         extend(this.settings,SETTINGS);
         this.settings.closeIcon = true;
+        this.settings.className = 'zdialog';
         this.settings.height = '';
         this.settings.buttons = [{
                 text : '确定'               
@@ -24,8 +26,11 @@ var Zdialog = function(opt){
         return new Zdialog(opt);
     }
     //初始化各参数
+    this.settings.className ? opt.className = 'containter ' + this.settings.className + ' ' + (opt.className ? opt.className : '') : 'containter';
     this.init(opt);
-    new Drag('containter').init();
+    if(this.settings.dragable === true){
+        new Drag('containter').init();
+    }    
     return this;
 };
 
@@ -55,8 +60,12 @@ Zdialog.prototype.create = function(){
         document.body.appendChild(omask);   
     }
 
-    this.header = '<h4 class="header"><span class="title">'+this.settings.title+'</span>'+this.closeIcon+'</h4>';
-
+    if(this.settings.title){
+        this.header = '<h4 class="header"><span class="title">'+this.settings.title+'</span>'+this.closeIcon+'</h4>';
+    }else{
+        this.header = '';
+    }
+    
     this.content = '<div class="content" id="content">'+this.settings.content+'</div>';
 
     var buttons = this.settings.buttons;
@@ -117,8 +126,10 @@ Zdialog.prototype.bindfn = function (oContainter,buttons) {
             };
         }
 
-        abtns[abtns.length-1].onclick = function(){
-            self.close();
+        if(abtns.length>=1){
+            abtns[abtns.length-1].onclick = function(){
+                self.close();
+            }
         }
 
         if(buttons[i].fn instanceof Function){
@@ -148,7 +159,10 @@ Zdialog.prototype.setStyle = function(oContainter,omask){
     }
 
     oContainter.style.position = 'absolute';
-    oContainter.style.zIndex = parseInt(omask.style.zIndex) + 1;
+    if(omask){
+        oContainter.style.zIndex = parseInt(omask.style.zIndex) + 1;
+    }
+    
 
     this.setpos(oContainter,omask);
 
@@ -204,15 +218,29 @@ var Zalert = function(opt){
 
     if(this instanceof Zalert){
         this.settings = {};
+        //this.settings.className='';
         extend(this.settings,SETTINGS);
+        this.settings.title = '';
+        
+        
+        this.settings.className = 'zalert';
         this.settings.buttons = [{
             text : '确定'               
         }];
     }else{
         return new Zalert(opt);
     }
+    //this.settings.className ? opt.className = 'containter ' + this.settings.className + ' ' + (opt.className ? opt.className : '') : 'containter';
+    if(typeof opt == 'string'){
+        this.settings.content = opt;
+        this.settings.className ? this.settings.className = 'containter ' + this.settings.className + ' ' : 'containter';  
+    }else{
+        this.settings.className ? opt.className = 'containter ' + this.settings.className + ' ' + (opt.className ? opt.className : '') : 'containter';
+    }
     this.init(opt);
-    new Drag('containter').init();
+    if(this.settings.dragable === true){
+        new Drag('containter').init();
+    } 
 }
 
 extend(Zalert.prototype,Zdialog.prototype);
@@ -228,6 +256,7 @@ var Zconfirm = function(opt,fnCallBack){
         this.settings = {};
         this.fnCallBack = fnCallBack;
         extend(this.settings,SETTINGS);
+        this.settings.className = 'zconfirm';
         this.settings.buttons = [
             { text : '确定'},
             { text : '取消'}
@@ -235,8 +264,12 @@ var Zconfirm = function(opt,fnCallBack){
     }else{
         return new Zconfirm(opt,fnCallBack);
     }
+    this.settings.className ? opt.className = 'containter ' + this.settings.className + ' ' + (opt.className ? opt.className : '') : 'containter';
+    
     this.init(opt);
-    new Drag('containter').init();
+    if(this.settings.dragable === true){
+        new Drag('containter').init();
+    }
 }
 
 extend(Zconfirm.prototype,Zdialog.prototype);
