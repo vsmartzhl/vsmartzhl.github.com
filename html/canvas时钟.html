@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>时钟canvas</title>
+<script>
+  
+  window.onload = function(){
+    var oc = document.getElementById('can1');
+    var ogc = oc.getContext('2d');
+
+    toDraw();
+
+    setInterval(function(){
+    	toDraw();
+    },1000);
+    
+    function toDraw(start){
+    	var x = 200;
+    	var y = 200;
+    	var r = 150;
+
+    	ogc.clearRect(0,0,oc.width,oc.height);
+
+    	// now time
+    	var odate = new Date();
+    	var ohour = odate.getHours();
+    	var omin = odate.getMinutes();
+    	var osen = odate.getSeconds();
+
+    	var ohourValue = (-90 + ohour*30 + omin/2)*Math.PI/180;
+    	var ominValue = (-90 + omin*6)*Math.PI/180;
+    	var osenValue = (-90 + osen*6)*Math.PI/180;
+
+    	// sen arc line
+    	drawArcline(x,y,r,60,6,1);
+    	
+
+    	fillCircle(x,y,r,19);
+
+    	// hour arc line
+    	drawArcline(x,y,r,12,30,3);
+		
+
+    	fillCircle(x,y,r,18);
+    	
+    	// hour
+    	drawTimeLine(x,y,r,10,ohourValue,5);
+
+    	// min
+    	drawTimeLine(x,y,r,14,ominValue,3);
+
+    	// sen
+    	drawTimeLine(x,y,r,19,osenValue,1);
+    	/*start ? drawTimeLine(x,y,r,19,osenValue+1,1) : drawTimeLine(x,y,r,19,osenValue,1);*/
+    }
+
+    function drawTimeLine(x,y,r,sc,otimeValue,lw){
+    	ogc.lineWidth = lw;
+    	ogc.beginPath();
+    	ogc.moveTo(x,y);
+    	ogc.arc(x,y,r*sc/20,otimeValue,otimeValue,false);
+    	ogc.closePath();
+    	ogc.stroke();
+    }
+
+    function drawArcline(x,y,r,ts,hr,lw){
+    	ogc.beginPath();
+    	ogc.lineWidth = lw;
+    	for (var i = 0; i < ts; i++) {
+    		ogc.moveTo(x,y);
+    		ogc.arc(x,y,r,hr*i*Math.PI/180,hr*(i+1)*Math.PI/180,false);
+    	};
+    	ogc.closePath();
+    	ogc.stroke();
+    }
+
+    function fillCircle(x,y,r,sc){
+    	ogc.beginPath();
+    	ogc.fillStyle = '#fff';
+    	ogc.moveTo(x,y);
+    	ogc.arc(x,y,r*sc/20,0,360*Math.PI/180,false);
+    	ogc.closePath();
+    	ogc.fill();
+    }
+  }
+</script>
+</head>	
+<body>
+<canvas id="can1" width='400' height="400"></canvas>
+</body>
+</html>
+
+
+
