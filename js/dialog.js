@@ -1,6 +1,6 @@
 var SETTINGS = {
     width : 300,
-    minHeight : 100,
+    minHeight : 80,
     title:'请添加标题',
     content:'请添加文本内容！',
     mask : true,
@@ -59,13 +59,13 @@ Zdialog.prototype.create = function(){
         omask.id = 'mask';
         document.body.appendChild(omask);   
     }
-
-    if(this.settings.title){
+    if(this.settings.title!=false){
         this.header = '<h4 class="header"><span class="title">'+this.settings.title+'</span>'+this.closeIcon+'</h4>';
     }else{
         this.header = '';
     }
     
+
     this.content = '<div class="content" id="content">'+this.settings.content+'</div>';
 
     var buttons = this.settings.buttons;
@@ -94,8 +94,10 @@ Zdialog.prototype.bindfn = function (oContainter,buttons) {
     var self = this;
     var oheader = oContainter.firstElementChild || oContainter.firstChild ;
 
-    //the closeIcon action
-    var oclose = oheader.getElementsByTagName('a')[0];
+    if(oheader.className=="header"){
+        //the closeIcon action
+        var oclose = oheader.getElementsByTagName('a')[0];
+    }
 
     if(oclose){
         oclose.onclick = function(){
@@ -127,20 +129,35 @@ Zdialog.prototype.bindfn = function (oContainter,buttons) {
         }
 
         if(abtns.length>=1){
-            abtns[abtns.length-1].onclick = function(){
-                self.close();
+            
+            if(this.constructor == Zalert){
+                var self = this;
+                abtns[abtns.length-1].onclick = function(){
+                    if(typeof self.fnCallBack == 'function'){
+                        self.fnCallBack && self.fnCallBack();
+                    }
+                    self.close();
+                }
+            }else{
+                abtns[abtns.length-1].onclick = function(){
+                    self.close();
+                }
             }
         }
 
+        //绑定函数
         if(buttons[i].fn instanceof Function){
             abtns[i].onclick = function(){
-
+                // 如果按钮上有函数，存下来
                 var oldfn = buttons[i].fn;
-
+                // 定义新函数
                 var newfn = function(){
-                   oldfn();
-                   self.close();
+                    // 先执行已有的函数
+                    oldfn();
+                    // 关闭弹出层
+                    self.close();
                 }
+                // 返回 newfn
                 return newfn;
             }(); 
         }
@@ -149,20 +166,29 @@ Zdialog.prototype.bindfn = function (oContainter,buttons) {
 
 Zdialog.prototype.setStyle = function(oContainter,omask){
     var self = this;
-    oContainter.style.width = parseInt(this.settings.width) + 'px';
-    oContainter.style.height = parseInt(this.settings.height) + 'px';
-    oContainter.style['min-height'] = parseInt(this.settings.minHeight) + 'px'; 
+    this.settings.width = this.settings.width.toString();
+    if(this.settings.width.indexOf("px")!=-1){
+        var dw = 'px';
+    }else if(this.settings.width.indexOf("%")!=-1){
+        var dw = '%';
+    }else if(this.settings.width.indexOf("rem")!=-1){
+        var dw = 'rem';     
+    }else{
+        var dw = 'px'
+    }
+    oContainter.style.width = parseFloat(this.settings.width) + dw;
+    oContainter.style.height = parseFloat(this.settings.height) + dw;
+    oContainter.style['min-height'] = parseFloat(this.settings.minHeight) + 'px'; 
 
     if(this.settings.opacity && omask){
         omask.style.zIndex = 99;
         omask.style.opacity = this.settings.opacity;
     }
 
-    oContainter.style.position = 'absolute';
+    oContainter.style.position = 'fixed';
     if(omask){
         oContainter.style.zIndex = parseInt(omask.style.zIndex) + 1;
     }
-    
 
     this.setpos(oContainter,omask);
 
@@ -174,6 +200,12 @@ Zdialog.prototype.setStyle = function(oContainter,omask){
 //set containter position
 Zdialog.prototype.setpos = function(oContainter){
     var self = this;
+
+    if(this.settings.className && this.settings.className.indexOf("allAlert") != -1 ){
+        oContainter.style.left = 0;
+        oContainter.style.top = 0;
+        this.settings.dir = "normal";
+    }
 
     if(this.settings.left || this.settings.top || this.settings.bottom || this.settings.right){
             this.settings.dir = null;
@@ -214,21 +246,20 @@ function viewHeight(){
     return document.documentElement.clientHeight;
 }
 
-var Zalert = function(opt){
+var Zalert = function(opt,fnCallBack){
 
     if(this instanceof Zalert){
         this.settings = {};
         //this.settings.className='';
+        this.fnCallBack = fnCallBack;
         extend(this.settings,SETTINGS);
-        this.settings.title = '';
-        
-        
-        this.settings.className = 'zalert';
+        this.settings.title = '';        
+        this.settings.className = 'halfAlert bandMes';
         this.settings.buttons = [{
             text : '确定'               
         }];
     }else{
-        return new Zalert(opt);
+        return new Zalert(opt,fnCallBack);
     }
     //this.settings.className ? opt.className = 'containter ' + this.settings.className + ' ' + (opt.className ? opt.className : '') : 'containter';
     if(typeof opt == 'string'){
@@ -254,9 +285,11 @@ var Zconfirm = function(opt,fnCallBack){
 
     if(this instanceof Zconfirm){
         this.settings = {};
+
         this.fnCallBack = fnCallBack;
         extend(this.settings,SETTINGS);
-        this.settings.className = 'zconfirm';
+        this.settings.className = 'halfAlert bandMes';
+        this.settings.title = '';
         this.settings.buttons = [
             { text : '确定'},
             { text : '取消'}
@@ -264,7 +297,12 @@ var Zconfirm = function(opt,fnCallBack){
     }else{
         return new Zconfirm(opt,fnCallBack);
     }
-    this.settings.className ? opt.className = 'containter ' + this.settings.className + ' ' + (opt.className ? opt.className : '') : 'containter';
+    if(typeof opt == 'string'){
+        this.settings.content = opt;
+        this.settings.className ? this.settings.className = 'containter ' + this.settings.className + ' ' : 'containter';  
+    }else{
+        this.settings.className ? opt.className = 'containter ' + this.settings.className + ' ' + (opt.className ? opt.className : '') : 'containter';
+    }
     
     this.init(opt);
     if(this.settings.dragable === true){
