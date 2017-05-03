@@ -53,16 +53,16 @@
 		</tr>
 		<tr>
 			<td><span>邮箱</span></td>
-			<td><input id="eamil" name="email" type="text"></td>
+			<td><input id="email" name="email" type="text"></td>
 		</tr>
 	</table>
 	<p class="text-center" style="margin-bottom: 20px;">
 		<input type="button" name="submit" onclick="subt()" value="提交" style="margin-right: 50px;">
-		<input type="reset" value="重置">
+		<input type="reset" id="resets" value="重置">
 	</p>
 </form>
 
-<table class="tableList table text-center">
+<!-- <table class="tableList table text-center">
 	<tr>
 		<th>序号</th>
 		<th>姓名</th>
@@ -87,7 +87,7 @@
 		<td>hongliang40@163.com</td>
 		<td><a href="javascript:;">修改</a></td>
 	</tr>
-</table>
+</table> -->
 
 </body>
 </html>
@@ -99,20 +99,25 @@ function subt(){
 
 	//var  str =  $("#form").serialize(); 
 	//alert(str);
-	$.ajax(function(){
-		url : './countResolve.php?',
-		data:{
-	        name:$('#name').val(),area:$('#area').val(),company:$('#company').val(),zhicheng:$('#zhicheng').val(),mobile:$('#mobile').val(),email:$('#email').val()
-	    },
+	var user = {
+        name:$('#name').val(),
+        area:$('#area').val(),
+        company:$('#company').val(),
+        zhicheng:$('#zhicheng').val(),
+        mobile:$('#mobile').val(),
+        email:$('#email').val()
+    };
+
+	$.ajax({
+		url : 'countResolve.php',
+		data:user,
+		type:'post',
 		success : function(data){
 			if(data){
 				alert("添加成功");
-				$("form").reset();
+				$("#resets").trigger('click');
 			}
 			
-		},
-		error : function(){
-
 		}
 	});
 }
