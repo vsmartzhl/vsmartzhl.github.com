@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>video</title>
-<link rel="stylesheet" href="../css/video.css">
+<link rel="stylesheet" href="css/video.css">
 
 <script>
 window.onload = function() {
@@ -76,7 +76,7 @@ window.onload = function() {
 
 	oFullScreen.onclick = function(){
 		oVideo.webkitRequestFullScreen && oVideo.webkitRequestFullScreen();
-		oVideo.mozkitRequestFullScreen && oVideo.mozkitRequestFullScreen();
+		oVideo.mozRequestFullScreen && oVideo.mozRequestFullScreen();
 		oVideo.msRequestFullscreen && oVideo.msRequestFullscreen();
 	}
 
@@ -158,10 +158,10 @@ window.onload = function() {
 
 <div class="videoBox" id="videoBox" style="width: 570px; height: 340px; margin: 50px auto;">
 	<div id="jquery_jplayer_1" class="vPlayer" >
-		<!-- <img id="vPoster" src="images/mi4.png" style="width: 570px; height: 340px; display: none;"> -->
+		<img id="vPoster" src="images/mi4.png" style="width: 570px; height: 340px; display: none;">
 		
 		<video  id="videoObj" width="100%" style="">
-			<source src="../videoImg/duanwu.mp4"></source>
+			<source src="duanwu.mp4"></source>
 		</video>
 	</div>
 
