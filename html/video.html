@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>video</title>
+<link rel="stylesheet" href="../css/video.css">
+
+<script>
+window.onload = function() {
+	var oVideo = document.getElementById('videoObj');
+	var oPlay = document.getElementById('vPlay');
+	var oPause = document.getElementById('vPause');
+
+	var oCurrentTime = document.getElementById('vCurrentTime');
+	var oDuration = document.getElementById('vDuration');
+	var oMute = document.getElementById('vMute');
+	var oUnmute = document.getElementById('vUnmute');
+	var oFullScreen = document.getElementById('vFullScreen');
+
+	var oPlayBar = document.getElementById('vPlayBar');
+	var oPlayDrag = document.getElementById('playDrag');
+	var oSeekBar = document.getElementById('vSeekBar');
+
+	var oVolumeBar = document.getElementById('volumeBar');
+	var oHandle = document.getElementById('handle');
+
+	var disx = 0;
+	var disx2 = 0;
+
+	var timer = null;
+
+	oPlay.onclick = function(){		
+		oVideo.play();
+		oPlay.style.display = "none";
+		oPause.style.display = "block";
+		//console.log(oVideo.currentTime);
+		nowTime();
+		timer = setInterval(nowTime,1000);
+	}
+
+	oPause.onclick = function(){
+		oVideo.pause();
+		oPlay.style.display = "block";
+		oPause.style.display = "none";
+		clearInterval(timer);
+	}
+	
+	getDuration();
+
+	function getDuration() {
+	 	var timeset = null;
+		timeset = setTimeout(function () {
+			var duration = oVideo.duration;
+			if(isNaN(duration)){
+				getDuration();
+			}else{
+				oDuration.innerHTML = changeTime(oVideo.duration);
+				clearInterval(timeset);
+			}
+		}, 10);
+	}
+
+	oMute.onclick = function(){
+		oUnmute.style.display = "block";
+		oMute.style.display = "none";
+		oVideo.volume = 0;
+		oVideo.muted = true;		
+	}
+
+	oUnmute.onclick = function(){		
+		oMute.style.display = "block";
+		oUnmute.style.display = "none";		
+		oVideo.volume = 1;
+		oVideo.muted = false;		
+	}
+
+	oFullScreen.onclick = function(){
+		oVideo.webkitRequestFullScreen && oVideo.webkitRequestFullScreen();
+		oVideo.mozkitRequestFullScreen && oVideo.mozkitRequestFullScreen();
+		oVideo.msRequestFullscreen && oVideo.msRequestFullscreen();
+	}
+
+	function nowTime(){
+		//var currentTime = changeTime(oVideo.currentTime);
+		oCurrentTime.innerHTML = changeTime(oVideo.currentTime);		
+		var scale = oVideo.currentTime/oVideo.duration;
+		oPlayDrag.style.left = scale * (oSeekBar.offsetWidth - oPlayDrag.offsetWidth) + 'px';
+		oPlayBar.style.width = 	scale * 100 + '%';
+		if(oVideo.paused){
+			oPlay.style.display = "block";
+			oPause.style.display = "none";
+		}
+	}
+
+	function changeTime(time){
+		time = parseInt(time);
+		var ih = toZero(Math.floor(time/3600));
+		var im = toZero(Math.floor(time%3600/60));
+		var is = toZero(Math.floor(time%60));
+		return (ih + ':' + im + ':' + is);		
+	}
+
+	function toZero(num){
+		num = num <= 9 ? '0'+ num : num;
+		return num; 
+	}
+
+	oPlayDrag.onmousedown = function(ev){
+		var ev = ev || window.event;
+		disx = ev.clientX - oPlayDrag.offsetLeft;
+		document.onmousemove = function(ev){
+			var ev = ev || window.event;
+			var L = ev.clientX - disx;
+			if(L<0){
+				L = 0;
+			}else if(L > oSeekBar.offsetWidth - oPlayDrag.offsetWidth){
+				L = oSeekBar.offsetWidth - oPlayDrag.offsetWidth;
+			}
+			oPlayDrag.style.left = L + 'px';
+			var scale = L/(oSeekBar.offsetWidth - oPlayDrag.offsetWidth);
+			oVideo.currentTime = scale * oVideo.duration;
+			nowTime();
+		}
+		document.onmouseup = function(ev){
+			document.onmousemove = null;
+		}
+	}
+
+	oHandle.onmousedown = function(ev){
+		var ev = ev || window.event;
+		disx2 = ev.clientX - oHandle.offsetLeft;
+
+		document.onmousemove = function(ev){
+			var ev = ev || window.event;
+			var L = ev.clientX - disx2;
+			if(L<0){
+				L = 0;
+			}else if(L > oVolumeBar.offsetWidth - oHandle.offsetWidth){
+				L = oVolumeBar.offsetWidth - oHandle.offsetWidth;
+			}
+			oHandle.style.left = L + 'px';
+			var scale = L/(oVolumeBar.offsetWidth - oHandle.offsetWidth);
+			console.log(scale);
+			oVideo.volume = scale;
+		}
+		document.onmouseup = function(ev){
+			document.onmousemove = null;
+		}
+	}
+
+}
+</script>
+</head>
+<body>
+<!-- <video controls  id="" width="" style="">
+			<source src="wd.mp4"></source>
+		</video> -->
+
+<div class="videoBox" id="videoBox" style="width: 570px; height: 340px; margin: 50px auto;">
+	<div id="jquery_jplayer_1" class="vPlayer" >
+		<!-- <img id="vPoster" src="images/mi4.png" style="width: 570px; height: 340px; display: none;"> -->
+		
+		<video  id="videoObj" width="100%" style="">
+			<source src="../videoImg/duanwu.mp4"></source>
+		</video>
+	</div>
+
+	<div class="vInterface">
+
+		<div class="vControlsHolder">
+				
+			<!--play and pause buttons-->
+		    <a href="javascript:;" id="vPlay" class="vPlay" tabindex="1" style="display: block;">play</a>
+		    <a href="javascript:;" id="vPause" class="vPause" tabindex="1" style="display: none;">pause</a>
+		    <span class="separator sep-1"></span>
+
+			<!--progress bar-->
+		    <div class="vProgress">
+		        <div class="vSeekBar" id="vSeekBar" >
+					<div class="vPlayBar" id="vPlayBar" style=""><span id="playDrag"></span></div>
+				</div>
+		    </div>
+
+		    <!--time notifications-->
+		    <div class="vCurrentTime" id="vCurrentTime">00:00</div>
+		    <span class="vTimeSep" id="vCurrentTime">/</span>
+		    <div class="vDuration" id="vDuration">00:00</div>
+		    <span class="separator sep-2" id="separator"></span>
+
+		    <!--mute / unmute toggle-->
+		    <a href="javascript:;" class="vMute" id="vMute" tabindex="1" title="mute">mute</a>
+		    <a href="javascript:;" class="vUnmute" id="vUnmute" tabindex="1" title="unmute" style="display: none;">unmute</a>
+		 
+		    <!--volume bar-->
+		    <div class="volumeBar" id="volumeBar">
+		        <div class="volumeBarValue" id="volumeBarValue" style="width: 100%;"><span class="handle" id="handle"></span></div>
+		    </div>
+		    <span class="separator sep-2"></span>
+		 
+		    <!--full screen toggle-->
+		    <a href="javascript:;" id="vFullScreen" class="vFullScreen" tabindex="1" title="full screen">full screen</a>
+		    <a href="javascript:;" class="vRestoreScreen" tabindex="1" title="restore screen" style="display: none;">restore screen</a>				
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
+<script>
+
+
+</script>
