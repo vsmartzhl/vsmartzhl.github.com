@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>仿支付宝密码输入与回退</title>
+<style>
+.iptPwds input:not(:last-child) {
+    border-left: 1px solid #dedede;
+}
+.iptPwds input {
+    width: 40px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    padding-left: 6px;
+    border: 1px solid #dddddd;
+}
+</style>
+
+<script src="../js/jquery.js"></script>
+
+</head>
+<body>
+	
+<table>
+
+	<tr>
+		<td>交易密码：</td>
+		<td><span class="iptPwds">
+                <input type="password" class=""><input type="password" class=""><input type="password" class=""><input type="password"><input type="password"><input type="password">
+            </span>
+        </td>
+	</tr>
+
+</table>
+
+</body>
+</html>
+<script>
+
+// 密码输入自动获取下一文本框焦点
+    $(".iptPwds input").on('input',function(){
+        var index = $(this).index();
+        $(this).addClass('foucsIpt');
+        if((index+1) == $(".iptPwds input").size()){
+            $(".iptPwds input:last").blur();
+        }else{
+            $(this).next().focus();
+        }   
+    });
+
+
+    var keydownNum = 0;
+    
+    $(document).keydown(function(event){
+        
+        var iptNums = $(".iptPwds input").size();
+        if(event.which == 8){
+            var pwdNums = $(".iptPwds .foucsIpt").size();
+            var lastIndex = $(".iptPwds .foucsIpt:last").index();
+            
+            $(".iptPwds input").eq(lastIndex).blur();
+            $(".iptPwds input.foucsIpt:last").focus();
+            $(".iptPwds input").eq(lastIndex).removeClass('foucsIpt').val('');
+            
+        }
+    });
+
+</script>
