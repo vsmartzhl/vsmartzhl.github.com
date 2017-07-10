@@ -41,14 +41,19 @@
 // 密码输入自动获取下一文本框焦点
     $(".iptPwds input").on('input',function(){
         var index = $(this).index();
-        $(this).addClass('foucsIpt');
-        if((index+1) == $(".iptPwds input").size()){
-            $(".iptPwds input:last").blur();
+        var re = /\d/;
+        if(re.test($(this).val())){
+            $(this).addClass('foucsIpt');
+            if((index+1) == $(".iptPwds input").size()){
+                $(".iptPwds input:last").blur();
+            }else{
+                $(this).next().focus();
+            }   
         }else{
-            $(this).next().focus();
-        }   
+            $(this).val('').focus();
+        }
+        
     });
-
 
     var keydownNum = 0;
     
@@ -61,8 +66,7 @@
             
             $(".iptPwds input").eq(lastIndex).blur();
             $(".iptPwds input.foucsIpt:last").focus();
-            $(".iptPwds input").eq(lastIndex).removeClass('foucsIpt').val('');
-            
+            $(".iptPwds input").eq(lastIndex).removeClass('foucsIpt').val('');    
         }
     });
 
