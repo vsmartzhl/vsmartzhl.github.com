@@ -1,0 +1,319 @@
+    1  cd e:
+    2  cd stu
+    3  cd study/
+    4  cd linux/
+    5  vim 1.txt
+    6  gvim
+    7  gvim
+    8  givm
+    9  gvim
+   10  gvim
+   11  vim
+   12  node
+   13  node -V;
+   14  node -v
+   15  gvim
+   16  cd e:
+   17  cd study/
+   18  cd linux/
+   19  dir
+   20  ls
+   21  vim 1.txt
+   22  gvim 1.txt
+   23  vi 1.txt 
+   24  vi 1.txt 
+   25  gvim
+   26  vim
+   27  cd e:
+   28  dir
+   29  cd study/
+   30  cd linux/
+   31  dir
+   32  cap ./ 1.txt 
+   33  cat ./ 1.txt 
+   34  dir
+   35  cat ./2.txt 1.txt 
+   36  cat ./ 2.txt 1.txt 
+   37  cat ./1.txt 
+   38  cat ./1.txt 123
+   39  cat ./1.txt 2.txt
+   40  cat --help
+   41  cat 1.txt 
+   42  cat file 1.txt 
+   43  dir
+   44  cat f -g
+   45  cat 1.txt 
+   46  cat ./1.txt 2.txt
+   47  cp 1.txt
+   48  cp 1.txt  2.txt
+   49  dir
+   50  cat 2.txt 
+   51  cat 3.txt
+   52  dir
+   53  cat 2.txt
+   54  cat>2.txt
+   55  cat 2.txt 
+   56  cat 2.txt>3.txt
+   57  dir
+   58  ls -ld /data
+   59  midir data
+   60  mkdir data
+   61  ls -ld /data
+   62  ls -ld ./data
+   63  dir
+   64  ls
+   65  ls -l
+   66  ls -ld
+   67  ls -ld 1.txt 
+   68  pwd
+   69  pwd
+   70  ls
+   71  touch 3.txt 
+   72  touch 4.txt
+   73  ls
+   74  ld
+   75  ls -ld
+   76  ls -l
+   77  touch stu{1..10}
+   78  ls
+   79  touch stu{1..10}.txt
+   80  ls
+   81  vi 4.txt 
+   82  cat 4.txt 
+   83  echo '123'>4.txt 
+   84  cat 4.txt 
+   85  echo 888>4.txt 
+   86  cat 4.txt 
+   87  echo '888'>4.txt 
+   88  cat 4.txt 
+   89  echo 'vsmart'>>4.txt 
+   90  cat 4.txt 
+   91  echo 'vsmart'>>4.txt 
+   92  cat 4.txt 
+   93  rm -f 4.txt 
+   94  ls
+   95  cat 3.txt 
+   96  xargs -n 2 <3.txt 
+   97  cat 2.txt 
+   98  cat 1.txt 
+   99  xargs -n 2 <1.txt 
+  100  vsmart 1>1.txt 2>2.txt 
+  101  cho vsmart 1>1.txt 2>2.txt 
+  102  cat 2.txt 
+  103  cat 1.txt 
+  104  echo '999' >1.txt 
+  105  cat 1.txt 
+  106  cat 2.txt 
+  107  cat 2.txt & 1.txt
+  108  cat 1.txt 
+  109  cat 2.txt 
+  110  cat 1.txt &>2.txt 
+  111  echo 1.txt &>2.txt 
+  112  cat 1.txt 
+  113  echo 123454 8899>1.txt 
+  114  ls
+  115  echo 123454 8899 >1.txt 
+  116  cat 1.txt 
+  117  cp 1.txt ./ 
+  118  cp 1.txt ./ 11.txt
+  119  cp 1.txt ./11.txt
+  120  ls
+  121  cp 1.txt ./data
+  122  cp -r ./data ./tmp
+  123  ls
+  124  cp -r data data2
+  125  ls
+  126  mv data2 ./study/
+  127  ls
+  128  cd ../
+  129  ls
+  130  cd linux/
+  131  rmdir rf study
+  132  rmdir study/
+  133  rmdir -rf study/
+  134  ls
+  135  rm -fr study/
+  136  ls
+  137  rm -f tmp/
+  138  rm 3.txt 
+  139  ls
+  140  rm -f 11.txt 
+  141  ls
+  142  mkdir tt
+  143  ls
+  144  cd tt
+  145  echo '99' > 1.txt
+  146  ls
+  147  cd ../
+  148  rmdir tt
+  149  rmdir -fr tt
+  150  rm -f tt
+  151  rm -fr tt
+  152  ls
+  153  find /data -type f
+  154  ls
+  155  find . -type f
+  156  find ./data -type f
+  157  find . -type f -name '1.txt'
+  158  find . -type f -name '1.txt' -exec rm
+  159  find . -type f -name '1.txt' -exec rm {} ;
+  160  ls
+  161  find . -type f -name '1.txt' -exec rm {} \;
+  162  ls
+  163  touch 1.txt
+  164  ls
+  165  find . -type f -name '*.txt'
+  166  find . -type f -name '1.txt' -exec rm {} ;
+  167  find . -type f -name '1.txt' -exec rm {} \;
+  168  ls
+  169  find . -type d 'data' -mtime -7 |xargs rm -rf
+  170  ls
+  171  find . -type d -name 'data' -mtime -7 |xargs rm -rf
+  172  ls
+  173  touch {1..10}.txt
+  174  ls
+  175  ls
+  176  mkdir data
+  177  cd data
+  178  echo '888' > 1.txt
+  179  ls
+  180  cd ../
+  181  find /data -type f
+  182  find ./data -type f
+  183  find ./data -type f -name '*.txt'
+  184  mv 'find ./data -type f -name "*.txt"' ./tmp
+  185  mv `find ./data -type f -name "*.txt"` ./tmp
+  186  cd tmp/
+  187  ls
+  188  grep -v
+  189  grep -v 5 1.txt
+  190  cat 1.txt
+  191  cd ../
+  192  ls
+  193  grep -v 567 1.txt
+  194  grep -v 5 1.txt
+  195  grep -v 555 2.txt
+  196  grep -v 5 2.txt
+  197  tree
+  198  yum install tree -y
+  199  cp 1.txt ./tmp/1.txt
+  200  ls
+  201  cp -r 1.txt ./tmp/1.txt
+  202  cp -r 1.txt ./tmp/
+  203  sqp 10
+  204  seq 10
+  205  seq 1 2 10
+  206  ls
+  207  seq 100 >2.txt
+  208  cat 2.txt
+  209  head -30 2.txt | tail -11
+  210  sed -n '20,10' 2.txt
+  211  seq -n '20,10' 2.txt
+  212  seq -n '20,10p' 2.txt
+  213  sed -n '20,10p' 2.txt
+  214  sed -n '20,30p' 2.txt
+  215  sed -n '20,30'p 2.txt
+  216  awk 'NR>19&&NR<31' 2.txt
+  217  grep 25 -C 5 2.txt
+  218  grep 20 -A 10 2.tst
+  219  grep 20 -A 10 2.txt
+  220  echo 'oldboy oldgirl' >1.txt
+  221  cat 1.txt 
+  222  set 's#oldgirl#gongli#g' 1.txt
+  223  cat 1.txt
+  224  sed 's#oldgirl#gongli#g' 1.txt
+  225  sed -i 's#oldboy#boy#g' `find ./ -type f -name '*.txt'`
+  226  cat 1.txt 
+  227  find ./ -type f -name '*.txt'|xargs cat
+  228  find ./ -type f -name '*.txt'| xargs cat
+  229  cd e:
+  230  dir
+  231  cd study/
+  232  cd linux/
+  233  date
+  234  date
+  235  ~
+  236  cd e:
+  237  cd study/
+  238  cd linux/
+  239  uname -m
+  240  uname -a
+  241  uname -r
+  242  info
+  243  ls
+  244  mkdir data{1..5}
+  245  ls
+  246  cd -
+  247  cd linux/
+  248  ifconfig
+  249  ipconfig
+  250  ifconfig
+  251  ps -ef | grep ssh
+  252  cd c:
+  253  ps -ef | grep ssh
+  254  cd e:
+  255  cd stu
+  256  cd d:
+  257  cd stu
+  258  clear l
+  259  dir
+  260  cd e:
+  261  dir
+  262  cd study/
+  263  cd linux/
+  264  netstat -lntup|grep ssh
+  265  su -root
+  266  runlevel
+  267  mysql
+  268  pwd
+  269  git
+  270  git config
+  271  cd e:
+  272  dir
+  273  cd study/
+  274  cd linux/
+  275  ls
+  276  cd ../
+  277  git init
+  278  cd git/
+  279  git init
+  280  rm -rf ./git
+  281  rm -rf .git
+  282  touch 3>1.txt
+  283  touch 2.txt
+  284  rm 2.txt
+  285  git diff
+  286  ls
+  287  echo 444>2.txt
+  288  ls
+  289  git diff
+  290  echo 55>1.txt
+  291  git diff
+  292  cd vsmartzhl.github.com/
+  293  echo 2>1.txt
+  294  git diff
+  295  echo 555>1.txt 
+  296  cat 1.txt 
+  297  echo '444'>1.txt 
+  298  cat 1.txt 
+  299  git diff
+  300  git diff master
+  301  git diff master
+  302  git add
+  303  git add .
+  304  git diff
+  305  git commit -m 'add mes';
+  306  git status
+  307  git checkout .
+  308  cat 1.txt 
+  309  cat count.txt
+  310  gut checkout count.txt
+  311  git checkout count.txt
+  312  cat count.txt
+  313  git status
+  314  git reset HEAD .
+  315  git status
+  316  git checkout .
+  317  cat count.txt 
+  318  history git.txt
+  319  history > git.txt
